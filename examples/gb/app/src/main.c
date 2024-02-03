@@ -2,12 +2,14 @@
 #include <stdint.h>
 #include "../res/dungeon_map.h"
 #include "../res/dungeon_tiles.h"
+#include "../res/game_tiles.h"
+#include "../res/test_map.h"
 
 
 void init_gfx(void) {
     // Load Background tiles and then map
-    set_bkg_data(0, 79u, dungeon_tiles);
-    set_bkg_tiles(0, 0, 32u, 32u, dungeon_mapPLN0);
+    set_bkg_data(0, 5, GAME_TILES);
+    set_bkg_tiles(0, 0, 20, 54, TEST_MAP);
 
 	// Turn the background map on to make it visible
     SHOW_BKG;
