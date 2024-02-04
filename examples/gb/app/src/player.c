@@ -33,7 +33,7 @@ void setPlayerSpriteTile(uint_fast8_t p){
 }
 
 void updatePlayerPosition(uint_fast8_t p){
-    int_fast8_t intox, intoy;
+    int_fast16_t intox, intoy;
     intox=playerPawns[p].x+playerPawns[p].dx;
     intoy=playerPawns[p].y+playerPawns[p].dy;
 

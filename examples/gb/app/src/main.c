@@ -19,7 +19,7 @@ void init_gfx(void) {
     playerPawns[0].sprite=0;
     set_sprite_tile(playerPawns[0].sprite,0);
     playerPawns[0].facing=PF_UP;
-    playerPawns[0].x=0<<SUBPIXEL_SCALE_SHIFT; playerPawns[0].y=0<<SUBPIXEL_SCALE_SHIFT;
+    playerPawns[0].x=8<<SUBPIXEL_SCALE_SHIFT; playerPawns[0].y=16<<SUBPIXEL_SCALE_SHIFT;
     SHOW_SPRITES;
 }
 
