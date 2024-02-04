@@ -7,7 +7,7 @@
  Info:
    Section       : 
    Bank          : 0
-   Map size      : 20 x 54
+   Map size      : 20 x 32
    Tile set      : we_game_map.gbr
    Plane count   : 1 plane (8 bits)
    Plane order   : Tiles are continues
@@ -21,7 +21,7 @@
 #define __test_map_h_INCLUDE
 
 #define TEST_MAPWidth 20
-#define TEST_MAPHeight 54
+#define TEST_MAPHeight 32
 #define TEST_MAPBank 0
 
 extern const unsigned char TEST_MAP[];
