@@ -42,21 +42,14 @@ void main(void)
 
 		// Game main loop processing goes here
 
-        players[0].input=joypad();
-        updatePlayers(0);
-
+        for(uint_fast8_t p=0;p<1;p++){
+            players[p].input=joypad();
+            updatePlayer(p);
+        }
         setCameraToWorldXY(0,playerPawns[0].y-(SCREENHEIGHT_MIDDLE_WORLD));
 
         setBkgToCamera();
         
-        
-
-        // move_sprite(
-        //     playerPawns[0].sprite,
-        //     (playerPawns[0].x>>SUBPIXEL_SCALE_SHIFT),
-        //     (viewYfromWorldY(playerPawns[0].y))
-        // );
-
 		// Done processing, yield CPU and wait for start of next frame
         vsync();
     }

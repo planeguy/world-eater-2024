@@ -77,10 +77,8 @@ void drawPlayerSprite(uint_fast8_t p){
     }
 }
 
-void updatePlayers(uint_fast8_t tick){
-    for(uint_fast8_t p=0;p<1;p++){
-        processInput(p);
-        updatePlayerPosition(p);
-        drawPlayerSprite(p);
-    }
+void updatePlayer(uint_fast8_t p){
+    processInput(p);
+    updatePlayerPosition(p);
+    drawPlayerSprite(p);
 }
