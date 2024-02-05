@@ -22,5 +22,5 @@ struct PlayerPawn{
 extern struct Player players[MAX_PLAYERS];
 extern struct PlayerPawn playerPawns[MAX_PLAYERS];
 
-#define PLAYER_SPEED 17;
+#define PLAYER_SPEED 23;
 void updatePlayers(uint_fast8_t tick);
