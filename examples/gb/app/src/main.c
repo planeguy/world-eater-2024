@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "player.h"
 #include "world.h"
+#include "field.h"
 #include "../res/map_tiles.h"
 #include "../res/player_tiles.h"
 #include "../res/test_map.h"
@@ -39,6 +40,16 @@ void main(void)
 
         players[0].input=joypad();
         updatePlayers(0);
+
+        setCameraToWorldXY(0,playerPawns[0].y-(SCREENHEIGHT_MIDDLE_WORLD));
+
+        setBkgToCamera();
+        
+        move_sprite(
+            playerPawns[0].sprite,
+            (playerPawns[0].x>>SUBPIXEL_SCALE_SHIFT),
+            (viewYfromWorldY(playerPawns[0].y))
+        );
 
 		// Done processing, yield CPU and wait for start of next frame
         vsync();

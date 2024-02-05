@@ -53,10 +53,5 @@ void updatePlayers(uint_fast8_t tick){
         processInput(p);
         setPlayerSpriteTile(p);
         updatePlayerPosition(p);
-        move_sprite(
-            playerPawns[p].sprite,
-            (playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT),
-            (playerPawns[p].y>>SUBPIXEL_SCALE_SHIFT)
-        );
     }
 }
