@@ -20,6 +20,7 @@ void init_gfx(void) {
 
     SPRITES_8x8;
 
+    
     set_sprite_data(0,4,sprite_tiles);
     SHOW_SPRITES;
 }
@@ -29,10 +30,10 @@ void main(void)
 {
 	init_gfx();
     const metasprite_t playerMetasprite[] = {
-        {.dx=-8,.dy=-8,.dtile=0,.props=0},
-        {.dx=8,.dy=0,.dtile=2,.props=0},
-        {.dx=-8,.dy=8,.dtile=1,.props=0},
-        {.dx=8,.dy=0,.dtile=3,.props=0},
+        {.dx=-8,.dy=-8,.dtile=0,.props=S_PALETTE},
+        {.dx=8,.dy=0,.dtile=2,.props=S_PALETTE},
+        {.dx=-8,.dy=8,.dtile=1,.props=S_PALETTE},
+        {.dx=8,.dy=0,.dtile=3,.props=S_PALETTE},
         METASPR_TERM
     };
     
