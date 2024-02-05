@@ -1,5 +1,8 @@
 #pragma once
 #include <stdint.h>
+#include <gb/metasprites.h>
+
+extern const metasprite_t* playerMetasprite;
 
 //player controller; for input and replication in vs play
 struct Player{
