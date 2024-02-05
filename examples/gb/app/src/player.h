@@ -2,7 +2,8 @@
 #include <stdint.h>
 #include <gb/metasprites.h>
 
-extern const metasprite_t* playerMetasprite;
+extern const metasprite_t playerMetaspriteUp[];
+extern const metasprite_t playerMetaspriteRt[];
 
 //player controller; for input and replication in vs play
 struct Player{

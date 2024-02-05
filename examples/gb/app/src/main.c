@@ -21,7 +21,7 @@ void init_gfx(void) {
     SPRITES_8x8;
 
     
-    set_sprite_data(0,4,sprite_tiles);
+    set_sprite_data(0,8,sprite_tiles);
     SHOW_SPRITES;
 }
 
@@ -29,21 +29,12 @@ void init_gfx(void) {
 void main(void)
 {
 	init_gfx();
-    const metasprite_t playerMetasprite[] = {
-        {.dx=-8,.dy=-8,.dtile=0,.props=S_PALETTE},
-        {.dx=8,.dy=0,.dtile=2,.props=S_PALETTE},
-        {.dx=-8,.dy=8,.dtile=1,.props=S_PALETTE},
-        {.dx=8,.dy=0,.dtile=3,.props=S_PALETTE},
-        METASPR_TERM
-    };
     
     uint_fast8_t startingSprite=0;
 
     playerPawns[0].sprite=0;
     playerPawns[0].facing=PF_UP;
     playerPawns[0].x=8<<SUBPIXEL_SCALE_SHIFT; playerPawns[0].y=16<<SUBPIXEL_SCALE_SHIFT;
-
-    move_metasprite_ex(playerMetasprite, 0, 0, 0,playerPawns[0].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[0].y));
 
     // Loop forever
     while(1) {
@@ -58,8 +49,8 @@ void main(void)
 
         setBkgToCamera();
         
-        move_metasprite_ex(playerMetasprite, 0, 0, 0,playerPawns[0].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[0].y));
         
+
         // move_sprite(
         //     playerPawns[0].sprite,
         //     (playerPawns[0].x>>SUBPIXEL_SCALE_SHIFT),
