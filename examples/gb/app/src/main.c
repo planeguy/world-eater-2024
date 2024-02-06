@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include "player.h"
 #include "world.h"
-#include "field.h"
 #include "../res/map_tiles.h"
 #include "../res/player_tiles.h"
 #include "../res/sprite_tiles.h"

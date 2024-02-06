@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include "player.h"
-#include "field.h"
 #include <gb/gb.h>
 #include "world.h"
 
@@ -50,11 +49,9 @@ void updatePlayerPosition(uint_fast8_t p){
     intoy=playerPawns[p].y+playerPawns[p].dy;
 
     //check collision against the map
-    if(getMapTileCollisionAt(intox>>SUBPIXEL_SCALE_SHIFT,intoy>>SUBPIXEL_SCALE_SHIFT)>=0){
-        //do not move into solid tiles
-        return;
-    }
+
     //check collision against other sprites
+
     //update x and y
     playerPawns[p].x=intox;
     playerPawns[p].y=intoy;
