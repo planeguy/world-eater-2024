@@ -17,7 +17,7 @@ void init_gfx(void) {
 	// Turn the background map on to make it visible
     SHOW_BKG;
 
-    SPRITES_8x8;
+    SPRITES_8x16;
 
     
     set_sprite_data(0,8,sprite_tiles);

@@ -9,16 +9,12 @@ struct PlayerPawn playerPawns[MAX_PLAYERS];
 const metasprite_t playerMetaspriteUp[] = {
     {.dx=-8,.dy=-8,.dtile=0,.props=S_PALETTE},
     {.dx=8,.dy=0,.dtile=2,.props=S_PALETTE},
-    {.dx=-8,.dy=8,.dtile=1,.props=S_PALETTE},
-    {.dx=8,.dy=0,.dtile=3,.props=S_PALETTE},
     METASPR_TERM
 };
 
 const metasprite_t playerMetaspriteRt[] = {
     {.dx=-8,.dy=-8,.dtile=4,.props=S_PALETTE},
     {.dx=8,.dy=0,.dtile=6,.props=S_PALETTE},
-    {.dx=-8,.dy=8,.dtile=5,.props=S_PALETTE},
-    {.dx=8,.dy=0,.dtile=7,.props=S_PALETTE},
     METASPR_TERM
 };
 
