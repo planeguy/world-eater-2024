@@ -45,8 +45,8 @@ void updatePlayerPosition(uint_fast8_t p){
     intoy=playerPawns[p].y+playerPawns[p].dy;
 
     //check collision against the map
-    if(tileTypeAtXY(intox, playerPawns[p].y)!=0) playerPawns[p].x=intox;
-    if(tileTypeAtXY(playerPawns[p].x,intoy)!=0) playerPawns[p].y=intoy;
+    if(tileTypeAtXY(intox, playerPawns[p].y)<=0) playerPawns[p].x=intox;
+    if(tileTypeAtXY(playerPawns[p].x,intoy)<=0) playerPawns[p].y=intoy;
 
     //check collision against other sprites
 }

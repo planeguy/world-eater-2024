@@ -6,13 +6,13 @@
 #include "../res/map_tiles.h"
 #include "../res/player_tiles.h"
 #include "../res/sprite_tiles.h"
-#include "../res/test_map.h"
+#include "../res/base_map.h"
 
 
 void init_gfx(void) {
     // Load Background tiles and then map
     set_bkg_data(0, 5, map_tiles);
-    set_bkg_tiles(0, 0, TEST_MAPWidth, TEST_MAPHeight, TEST_MAP);
+    set_bkg_tiles(0, 0, base_mapWidth, base_map, base_map);
 
 	// Turn the background map on to make it visible
     SHOW_BKG;
