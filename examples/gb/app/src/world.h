@@ -25,4 +25,14 @@ uint_fast8_t viewXfromWorldX(int_fast16_t x);
 uint_fast8_t viewYfromWorldY(int_fast16_t y);
 
 uint_fast8_t tileTypeAtXY(int_fast16_t x, int_fast16_t y);
+
+#define MAX_MAP_CHANGES 5
+struct MapChange {
+    uint_fast8_t pending;
+    uint_fast8_t x,y,w,d;
+    uint_fast8_t *tiles;
+};
+struct MapChange pendingMapChanges[MAX_MAP_CHANGES];
+
+void requestUpdateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles);
 void updateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles);

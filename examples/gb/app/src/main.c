@@ -8,8 +8,16 @@
 #include "../res/sprite_tiles.h"
 #include "../res/base_map.h"
 
+void vblankInterruptCallback(){
+    for(uint_fast8_t i=0;i<MAX_MAP_CHANGES;i++){
+        // update the map in vram
+    }
+}
 
 void init_gfx(void) {
+    disable_interrupts();
+    DISPLAY_OFF;
+    add_VBL(vblankInterruptCallback);
     // Load Background tiles and then map
     set_bkg_data(0, 5, map_tiles);
     set_bkg_tiles(0, 0, base_mapWidth, base_map, base_map);
@@ -19,9 +27,13 @@ void init_gfx(void) {
 
     SPRITES_8x16;
 
-    
     set_sprite_data(0,8,sprite_tiles);
     SHOW_SPRITES;
+
+
+    DISPLAY_ON;
+    enable_interrupts();
+    set_interrupts(VBL_IFLAG);
 }
 
 

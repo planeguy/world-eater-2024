@@ -28,7 +28,10 @@ uint_fast8_t tileTypeAtXY(int_fast16_t x, int_fast16_t y){
     return base_map[mapidx];
 }
 
+void requestUpdateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles){
+    //add request tot the queue
+    //update the local version
+}
 void updateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles){
-    //update base_map
     //update vram
 }

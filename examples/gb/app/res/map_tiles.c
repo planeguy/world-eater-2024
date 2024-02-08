@@ -12,7 +12,7 @@
   Tile size            : 8 x 8
   Tiles                : 0 to 5
 
-  Palette colors       : Included.
+  Palette colors       : None.
   SGB Palette          : None.
   CGB Palette          : None.
 
