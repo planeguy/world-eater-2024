@@ -3,6 +3,8 @@
 #include "../res/base_map.h"
 struct Camera camera;
 
+MapChange_t pendingMapChanges[MAX_MAP_CHANGES];
+
 void setBkgToCamera(){
     move_bkg(camera.x>>SUBPIXEL_SCALE_SHIFT, camera.y>>SUBPIXEL_SCALE_SHIFT);
 }
@@ -30,8 +32,18 @@ uint_fast8_t tileTypeAtXY(int_fast16_t x, int_fast16_t y){
 
 void requestUpdateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles){
     //add request tot the queue
+    uint_fast8_t next=0;
+    while(pendingMapChanges[next].pending>0||next<MAX_MAP_CHANGES){
+        next++;
+    }
+    if(next>=MAX_MAP_CHANGES) return;
+    pendingMapChanges[next].pending=1;
+    pendingMapChanges[next].x=x; pendingMapChanges[next].y=y;
+    pendingMapChanges[next].w=w; pendingMapChanges[next].h=h;
+    pendingMapChanges[next].tiles=tiles;
     //update the local version
 }
-void updateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles){
-    //update vram
+void updateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles, uint_fast8_t* target){
+    //update ram block
+    
 }

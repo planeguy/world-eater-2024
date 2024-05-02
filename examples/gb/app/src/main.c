@@ -4,7 +4,6 @@
 #include "player.h"
 #include "world.h"
 #include "../res/map_tiles.h"
-#include "../res/player_tiles.h"
 #include "../res/sprite_tiles.h"
 #include "../res/base_map.h"
 
@@ -20,14 +19,14 @@ void init_gfx(void) {
     add_VBL(vblankInterruptCallback);
     // Load Background tiles and then map
     set_bkg_data(0, 5, map_tiles);
-    set_bkg_tiles(0, 0, base_mapWidth, base_map, base_map);
+    set_bkg_tiles(0, 0, base_mapWidth, base_mapHeight, base_map);
 
 	// Turn the background map on to make it visible
     SHOW_BKG;
 
     SPRITES_8x16;
 
-    set_sprite_data(0,8,sprite_tiles);
+    set_sprite_data(0,12,sprite_tiles);
     SHOW_SPRITES;
 
 
@@ -36,6 +35,33 @@ void init_gfx(void) {
     set_interrupts(VBL_IFLAG);
 }
 
+
+void moveAndResolveSupershots(){
+
+}
+
+void moveAndCollideWithMap(){
+    for(uint_fast8_t p=0;p<1;p++){
+        processInput(p, joypad());
+        movePlayer(p);
+    }
+    //move bullets
+    //move monsters
+}
+
+void collideWithEachOther(){
+
+}
+
+void draw(){
+    for(uint_fast8_t p=0;p<1;p++){
+        drawPlayerSprite(p);
+    }
+}
+
+void worldEaterBlast(){
+
+}
 
 void main(void)
 {
@@ -52,11 +78,12 @@ void main(void)
 
 
 		// Game main loop processing goes here
-
-        for(uint_fast8_t p=0;p<1;p++){
-            players[p].input=joypad();
-            updatePlayer(p);
-        }
+        moveAndResolveSupershots();
+        moveAndCollideWithMap();
+        collideWithEachOther();
+        draw();
+        worldEaterBlast();
+        
         setCameraToWorldXY(0,playerPawns[0].y-(SCREENHEIGHT_MIDDLE_WORLD));
 
         setBkgToCamera();
