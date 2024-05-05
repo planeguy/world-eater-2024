@@ -1,9 +1,11 @@
 #include "world.h"
 #include <gb/gb.h>
 #include "../res/base_map.h"
+#include <stdlib.h>
 struct Camera camera;
-
-MapChange_t pendingMapChanges[MAX_MAP_CHANGES];
+uint_fast8_t *collisionMap;
+uint_fast16_t collisionMapHeight;
+uint_fast16_t collisionMapWidth;
 
 void setBkgToCamera(){
     move_bkg(camera.x>>SUBPIXEL_SCALE_SHIFT, camera.y>>SUBPIXEL_SCALE_SHIFT);
@@ -21,6 +23,30 @@ uint_fast8_t viewYfromWorldY(int_fast16_t y){
     return ((y-camera.y)>>SUBPIXEL_SCALE_SHIFT)+16;
 }
 
+void populateCollisionMap(uint_fast8_t originalMap[], uint_fast16_t originalWidth, uint_fast16_t originalHeight){
+    const uint_fast16_t maplength = originalHeight*originalWidth;
+    const uint_fast16_t memsize=maplength*sizeof(uint_fast8_t);
+    collisionMapHeight=originalHeight;
+    collisionMapWidth=originalWidth;
+    collisionMap=malloc(memsize);
+    if(collisionMap==NULL){
+    } else {
+        for(uint_fast16_t i=0;i<maplength;i++){
+            if(originalMap[i]>0)
+                { collisionMap[i]=3; }
+            else 
+                { collisionMap[i]=0; }
+        }
+    }
+}
+void destroyCollisionMap(){
+    for (uint_fast8_t i = 0; i < collisionMapHeight*collisionMapWidth; i++)
+    {
+        free(collisionMap[i]);
+    }
+    free(collisionMap);
+}
+
 uint_fast8_t tileTypeAtXY(int_fast16_t x, int_fast16_t y){
     int_fast16_t column = x>>SUBPIXEL_SCALE_SHIFT>>GRID_NODE_SHIFT;
     int_fast16_t row = y>>SUBPIXEL_SCALE_SHIFT>>GRID_NODE_SHIFT;
@@ -30,20 +56,11 @@ uint_fast8_t tileTypeAtXY(int_fast16_t x, int_fast16_t y){
     return base_map[mapidx];
 }
 
-void requestUpdateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles){
-    //add request tot the queue
-    uint_fast8_t next=0;
-    while(pendingMapChanges[next].pending>0||next<MAX_MAP_CHANGES){
-        next++;
-    }
-    if(next>=MAX_MAP_CHANGES) return;
-    pendingMapChanges[next].pending=1;
-    pendingMapChanges[next].x=x; pendingMapChanges[next].y=y;
-    pendingMapChanges[next].w=w; pendingMapChanges[next].h=h;
-    pendingMapChanges[next].tiles=tiles;
-    //update the local version
-}
-void updateMapTiles(uint_fast8_t x, uint_fast8_t y, uint_fast8_t w, uint_fast8_t h, uint_fast8_t* tiles, uint_fast8_t* target){
-    //update ram block
-    
+uint_fast8_t shieldAtXY(int_fast16_t x, int_fast16_t y){
+    int_fast16_t column = x>>SUBPIXEL_SCALE_SHIFT>>GRID_NODE_SHIFT;
+    int_fast16_t row = y>>SUBPIXEL_SCALE_SHIFT>>GRID_NODE_SHIFT;
+
+    uint_fast16_t mapidx = column+(row*collisionMapWidth);
+
+    return collisionMap[mapidx];
 }

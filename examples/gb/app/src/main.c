@@ -8,9 +8,7 @@
 #include "../res/base_map.h"
 
 void vblankInterruptCallback(){
-    for(uint_fast8_t i=0;i<MAX_MAP_CHANGES;i++){
-        // update the map in vram
-    }
+
 }
 
 void init_gfx(void) {
@@ -20,7 +18,7 @@ void init_gfx(void) {
     // Load Background tiles and then map
     set_bkg_data(0, 5, map_tiles);
     set_bkg_tiles(0, 0, base_mapWidth, base_mapHeight, base_map);
-
+    
 	// Turn the background map on to make it visible
     SHOW_BKG;
 
@@ -66,7 +64,8 @@ void worldEaterBlast(){
 void main(void)
 {
 	init_gfx();
-    
+    populateCollisionMap(base_map,base_mapWidth,base_mapHeight);
+       
     uint_fast8_t startingSprite=0;
 
     playerPawns[0].sprite=0;
