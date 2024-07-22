@@ -99,7 +99,7 @@ void main(void)
 
     playerPawns[0].sprite=0;
     playerPawns[0].facing=PF_UP;
-    playerPawns[0].x=16<<SUBPIXEL_SCALE_SHIFT; playerPawns[0].y=16<<SUBPIXEL_SCALE_SHIFT;
+    playerPawns[0].x=32<<SUBPIXEL_SCALE_SHIFT; playerPawns[0].y=128<<SUBPIXEL_SCALE_SHIFT;
 
     uint_fast32_t addShieldCounter=0;
 
