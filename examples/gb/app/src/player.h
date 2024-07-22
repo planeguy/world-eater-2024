@@ -27,9 +27,12 @@ struct PlayerPawn{
 extern struct Player players[MAX_PLAYERS];
 extern struct PlayerPawn playerPawns[MAX_PLAYERS];
 
-#define PLAYER_SPEED_ORTHOGONAL 23;
-#define PLAYER_SPEED_DIAGONAL 16;
+#define PLAYER_SPEED_ORTHOGONAL 23
+#define PLAYER_SPEED_DIAGONAL 16
+
+#define SHIFTED_SHIP_GIRTH (6<<SUBPIXEL_SCALE_SHIFT)
 
 void processInput(uint_fast8_t p, uint_fast8_t input);
+void playerToXY(uint_fast8_t p, int_fast16_t x, int_fast16_t y);
 void movePlayer(uint_fast8_t p);
 void drawPlayerSprite(uint_fast8_t p);
