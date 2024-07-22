@@ -33,10 +33,11 @@ void populateCollisionMap(uint_fast8_t originalMap[], uint_fast16_t originalWidt
     if(collisionMap==NULL){
     } else {
         for(uint_fast16_t i=0;i<maplength;i++){
-            if(originalMap[i]>0)
-                { collisionMap[i]=3; }
-            else 
-                { collisionMap[i]=0; }
+            collisionMap[i]=originalMap[i];
+            // if(originalMap[i]>0)
+            //     { collisionMap[i]=3; }
+            // else 
+            //     { collisionMap[i]=0; }
         }
     }
 }
@@ -49,16 +50,7 @@ void destroyCollisionMap(){
 }
 
 uint_fast8_t whatTileTypeAtXY(int_fast16_t x, int_fast16_t y){
-    int_fast16_t column = x>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT;
-    int_fast16_t row = y>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT;
-
-    uint_fast16_t mapidx = column+(row*base_mapWidth);
-
-    return base_map[mapidx];
-}
-
-uint_fast8_t isShieldAtXY(int_fast16_t x, int_fast16_t y){
-    uint_fast16_t column = x>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT;
+    uint_fast16_t column = (x>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT);
     uint_fast16_t row = y>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT;
 
     uint_fast16_t mapidx = column+(row*collisionMapWidth);
@@ -67,15 +59,8 @@ uint_fast8_t isShieldAtXY(int_fast16_t x, int_fast16_t y){
 }
 
 uint_fast8_t isWorldSolidAtXY(int_fast16_t x, int_fast16_t y){
-    uint_fast16_t column = (x>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT);
-    uint_fast16_t row = y>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT;
-
-    uint_fast16_t mapidx = column+(row*collisionMapWidth);
-
-    return collisionMap[mapidx]>0;
+    return whatTileTypeAtXY(x,y)>0;
 }
-
-
 
 void putShieldAtXY(int_fast16_t x, int_fast16_t y){
     uint_fast16_t column = x>>SUBPIXEL_SCALE_SHIFT>>TILE_SIZE_SHIFT;
@@ -86,8 +71,6 @@ void putShieldAtXY(int_fast16_t x, int_fast16_t y){
     collisionMap[mapidx] = 3;
     set_bkg_tiles(column,row,1,1,&map_tiles[1]);
 }
-
-
 void putShieldAtRowCol(uint_fast16_t row, uint_fast16_t col){
     uint_fast16_t mapidx = col+(row*collisionMapWidth);
 
