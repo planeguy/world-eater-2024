@@ -4,12 +4,14 @@
 #include "../res/base_map.h"
 
 #define SUBPIXEL_SCALE_SHIFT 4
-#define GRID_NODE_SHIFT 3
+#define TILE_SIZE_SHIFT 3
+#define GB_MARGIN_X 8
+#define GB_MARGIN_Y 16
 
 #define SCREENHEIGHT_MIDDLE_WORLD ((SCREENHEIGHT/2)<<SUBPIXEL_SCALE_SHIFT)
 
-#define WORLDWIDTH (base_mapWidth<<GRID_NODE_SHIFT<<SUBPIXEL_SCALE_SHIFT)
-#define WORLDHEIGHT (base_mapHeight<<GRID_NODE_SHIFT<<SUBPIXEL_SCALE_SHIFT)
+#define WORLDWIDTH (base_mapWidth<<TILE_SIZE_SHIFT<<SUBPIXEL_SCALE_SHIFT)
+#define WORLDHEIGHT (base_mapHeight<<TILE_SIZE_SHIFT<<SUBPIXEL_SCALE_SHIFT)
 
 #define MAP_TILE_LOCATION 0x9800
 
@@ -27,5 +29,10 @@ extern uint_fast8_t *collisionMap;
 extern uint_fast16_t collisionMapHeight;
 extern uint_fast16_t collisionMapWidth;
 void populateCollisionMap(uint_fast8_t originalMap[], uint_fast16_t originalWidth, uint_fast16_t originalHeight);
-uint_fast8_t tileTypeAtXY(int_fast16_t x, int_fast16_t y);
-uint_fast8_t shieldAtXY(int_fast16_t x, int_fast16_t y);
+uint_fast8_t whatTileTypeAtXY(int_fast16_t x, int_fast16_t y);
+uint_fast8_t isShieldAtXY(int_fast16_t x, int_fast16_t y);
+
+uint_fast8_t isWorldSolidAtXY(int_fast16_t x, int_fast16_t y);
+
+void putShieldAtXY(int_fast16_t x, int_fast16_t y);
+void putShieldAtRowCol(uint_fast16_t row, uint_fast16_t col);

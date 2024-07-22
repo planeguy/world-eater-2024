@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 #include "player.h"
 #include <gb/gb.h>
 #include "world.h"
@@ -61,41 +62,82 @@ void processInput(uint_fast8_t p, uint_fast8_t input){
     }
 }
 
+void playerToXY(uint_fast8_t p, int_fast16_t x, int_fast16_t y){
+    playerPawns[p].x=x;
+    playerPawns[p].y=y;
+}
+
 void movePlayer(uint_fast8_t p){
-    int_fast16_t intox, intoy;
+    uint_fast16_t intox, intoy, x, y;
+    enum PlayerFacing facing;
     intox=playerPawns[p].x+playerPawns[p].dx;
     intoy=playerPawns[p].y+playerPawns[p].dy;
+    x=playerPawns[p].x;
+    y=playerPawns[p].y;
+    facing=playerPawns[p].facing;
+
+    //printf("%u,%u", intox,intoy);
 
     //check collision against the map
-    if(shieldAtXY(intox, playerPawns[p].y)<=0) playerPawns[p].x=intox;
-    if(shieldAtXY(playerPawns[p].x,intoy)<=0) playerPawns[p].y=intoy;
+    // if(isShieldAtXY(intox, y)<1) playerPawns[p].x=intox;
+    // if(isShieldAtXY(x,intoy)<1) playerPawns[p].y=intoy;
+
+    if(
+        playerPawns[p].dy<0 
+        && !isWorldSolidAtXY(intox-SHIFTED_SHIP_GIRTH,intoy-SHIFTED_SHIP_GIRTH) 
+        && !isWorldSolidAtXY(intox,intoy-SHIFTED_SHIP_GIRTH)
+        && !isWorldSolidAtXY(intox+SHIFTED_SHIP_GIRTH,intoy-SHIFTED_SHIP_GIRTH)
+    ) playerPawns[p].y=intoy;
+
+    if(
+        playerPawns[p].dy>0
+        && !isWorldSolidAtXY(intox-SHIFTED_SHIP_GIRTH,intoy+SHIFTED_SHIP_GIRTH) 
+        && !isWorldSolidAtXY(intox,intoy+SHIFTED_SHIP_GIRTH) 
+        && !isWorldSolidAtXY(intox+SHIFTED_SHIP_GIRTH,intoy+SHIFTED_SHIP_GIRTH)
+    ) playerPawns[p].y=intoy;
+
+    if(
+        playerPawns[p].dx<0
+        && !isWorldSolidAtXY(intox-SHIFTED_SHIP_GIRTH,intoy-SHIFTED_SHIP_GIRTH) 
+        && !isWorldSolidAtXY(intox-SHIFTED_SHIP_GIRTH,intoy) 
+        && !isWorldSolidAtXY(intox-SHIFTED_SHIP_GIRTH,intoy+SHIFTED_SHIP_GIRTH)
+    ) playerPawns[p].x=intox;
+
+    if(
+        playerPawns[p].dx>0
+        && !isWorldSolidAtXY(intox+SHIFTED_SHIP_GIRTH,intoy-SHIFTED_SHIP_GIRTH) 
+        && !isWorldSolidAtXY(intox+SHIFTED_SHIP_GIRTH,intoy) 
+        && !isWorldSolidAtXY(intox+SHIFTED_SHIP_GIRTH,intoy+SHIFTED_SHIP_GIRTH)
+    ) playerPawns[p].x=intox;
+
+    playerPawns[p].dx=0; playerPawns[p].dy=0;
 }
 
 void drawPlayerSprite(uint_fast8_t p){
     switch(playerPawns[p].facing){
         case PF_UP:
-            move_metasprite_ex(playerMetaspriteUp, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_ex(playerMetaspriteUp, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_RT:
-            move_metasprite_ex(playerMetaspriteRt, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_ex(playerMetaspriteRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_DN:
-            move_metasprite_flipy(playerMetaspriteUp, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_flipy(playerMetaspriteUp, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_LT:
-            move_metasprite_flipx(playerMetaspriteRt, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_flipx(playerMetaspriteRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_UPRT:
-            move_metasprite_ex(playerMetaspriteUpRt, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_ex(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_UPLT:
-            move_metasprite_flipx(playerMetaspriteUpRt, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_flipx(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_DNRT:
-            move_metasprite_flipy(playerMetaspriteUpRt, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_flipy(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_DNLT:
-            move_metasprite_flipxy(playerMetaspriteUpRt, 0, 0, 0,playerPawns[p].x>>SUBPIXEL_SCALE_SHIFT, viewYfromWorldY(playerPawns[p].y));
+            move_metasprite_flipxy(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
     }
 }
