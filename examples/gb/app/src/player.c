@@ -24,6 +24,10 @@ const metasprite_t playerMetaspriteUpRt[]={
     {.dx=8,.dy=0,.dtile=10,.props=S_PALETTE},
     METASPR_TERM
 };
+const metasprite_t playerShot[]={
+    {.dx=0,.dy=-8,.dtile=12,.props=S_PALETTE},
+    METASPR_TERM
+};
 
 void processInput(uint_fast8_t p, uint_fast8_t input){
     //reset player movement

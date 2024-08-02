@@ -5,6 +5,7 @@
 extern const metasprite_t playerMetaspriteUp[];
 extern const metasprite_t playerMetaspriteRt[];
 extern const metasprite_t playerMetaspriteUpRt[];
+extern const metasprite_t playerShot[];
 
 //player controller; for input and replication in vs play
 struct Player{
@@ -18,14 +19,25 @@ enum playerFacing{PF_UP,PF_UPRT,PF_RT,PF_DNRT, PF_DN, PF_DNLT, PF_LT, PF_UPLT};
 struct PlayerPawn{
     enum playerFacing facing;
     uint_fast8_t sprite;
-    int_fast16_t x, y;
+    uint_fast16_t x, y;
     int_fast16_t dx, dy;
 };
 #define PLAYER_FIRST_TILE 0
 
+struct PlayerShot{
+    uint_fast8_t sprite;
+    uint_fast16_t x, y;
+};
+
+struct PlayerTorpedo{
+    uint_fast8_t sprite;
+    uint_fast16_t x, y;
+}
+
 #define MAX_PLAYERS 4
 extern struct Player players[MAX_PLAYERS];
 extern struct PlayerPawn playerPawns[MAX_PLAYERS];
+extern struct PlayerShot playerShots[MAX_PLAYERS];
 
 #define PLAYER_SPEED_ORTHOGONAL 23
 #define PLAYER_SPEED_DIAGONAL 16
