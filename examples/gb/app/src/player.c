@@ -4,8 +4,9 @@
 #include <gb/gb.h>
 #include "world.h"
 
-struct Player players[MAX_PLAYERS];
-struct PlayerPawn playerPawns[MAX_PLAYERS];
+player_t players[MAX_PLAYERS];
+playerpawn_t playerPawns[MAX_PLAYERS];
+playertorpedo_t playerTorpedos[MAX_PLAYERS];
 
 const metasprite_t playerMetaspriteUp[] = {
     {.dx=-8,.dy=-8,.dtile=0,.props=S_PALETTE},

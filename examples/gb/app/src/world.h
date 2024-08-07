@@ -15,10 +15,10 @@
 
 #define MAP_TILE_LOCATION 0x9800
 
-struct Camera {
+typedef struct Camera {
     int_fast16_t x, y;
-};
-extern struct Camera camera;
+} camera_t;
+extern camera_t camera;
 
 void setBkgToCamera();
 void setCameraToWorldXY(int_fast16_t x, int_fast16_t y);

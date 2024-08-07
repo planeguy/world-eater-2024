@@ -3,7 +3,7 @@
 #include "../res/base_map.h"
 #include "../res/map_tiles.h"
 #include <stdlib.h>
-struct Camera camera;
+camera_t camera;
 uint_fast8_t *collisionMap;
 uint_fast16_t collisionMapHeight;
 uint_fast16_t collisionMapWidth;

@@ -10,31 +10,32 @@ extern const metasprite_t playerShot[];
 enum playerFacing{PF_UP,PF_UPRT,PF_RT,PF_DNRT, PF_DN, PF_DNLT, PF_LT, PF_UPLT};
 extern const uint_fast16_t playerStartingXY[][2];
 
-struct PlayerPawn{
+typedef struct PlayerPawn{
     enum playerFacing facing;
     uint_fast16_t x, y;
     int_fast16_t dx, dy;
-};
+} playerpawn_t;
 
-struct PlayerShot{
+typedef struct PlayerShot{
     uint_fast16_t x, y;
-};
+} playershot_t;
 
-struct PlayerTorpedo{
+typedef struct PlayerTorpedo{
     uint_fast8_t power;
     uint_fast16_t x, y;
-};
+} playertorpedo_t;
 
 //player controller; for input and replication in vs play
-struct Player{
+typedef struct Player{
     uint_fast8_t input;
     uint_fast8_t score;
-};
+} player_t;
 
 #define MAX_PLAYERS 4
-extern struct Player players[MAX_PLAYERS];
-extern struct PlayerPawn playerPawns[MAX_PLAYERS];
-extern struct PlayerShot playerShots[MAX_PLAYERS];
+extern player_t players[MAX_PLAYERS];
+extern playerpawn_t playerPawns[MAX_PLAYERS];
+extern playershot_t playerShots[MAX_PLAYERS];
+extern playertorpedo_t playerTorpedos[MAX_PLAYERS];
 
 #define PLAYER_SPEED_ORTHOGONAL 23
 #define PLAYER_SPEED_DIAGONAL 16
