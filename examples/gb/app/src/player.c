@@ -29,6 +29,18 @@ const metasprite_t playerShot[]={
     METASPR_TERM
 };
 
+extern const uint_fast16_t playerStartingXY[][2]={
+    {32<<SUBPIXEL_SCALE_SHIFT, 128<<SUBPIXEL_SCALE_SHIFT},
+    {(168-32)<<SUBPIXEL_SCALE_SHIFT, 128<<SUBPIXEL_SCALE_SHIFT}
+};
+
+void initPlayer(uint_fast8_t p){
+    playerPawns[p].facing=PF_UP;
+    playerPawns[p].x=playerStartingXY[p][0];
+    playerPawns[p].y=playerStartingXY[p][1];
+    playerPawns[p].dx=0; playerPawns[p].dy=0;
+}
+
 void processInput(uint_fast8_t p, uint_fast8_t input){
     //reset player movement
     playerPawns[p].dx=0;
@@ -64,11 +76,6 @@ void processInput(uint_fast8_t p, uint_fast8_t input){
         playerPawns[p].dy=PLAYER_SPEED_ORTHOGONAL;
         playerPawns[p].facing=PF_DN;
     }
-}
-
-void playerToXY(uint_fast8_t p, int_fast16_t x, int_fast16_t y){
-    playerPawns[p].x=x;
-    playerPawns[p].y=y;
 }
 
 void movePlayer(uint_fast8_t p){
@@ -117,31 +124,32 @@ void movePlayer(uint_fast8_t p){
     playerPawns[p].dx=0; playerPawns[p].dy=0;
 }
 
-void drawPlayerSprite(uint_fast8_t p){
+uint_fast8_t drawPlayerSprites(uint_fast8_t p, uint_fast8_t hw_sprite){
     switch(playerPawns[p].facing){
         case PF_UP:
-            move_metasprite_ex(playerMetaspriteUp, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_ex(playerMetaspriteUp, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_RT:
-            move_metasprite_ex(playerMetaspriteRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_ex(playerMetaspriteRt, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_DN:
-            move_metasprite_flipy(playerMetaspriteUp, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_flipy(playerMetaspriteUp, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_LT:
-            move_metasprite_flipx(playerMetaspriteRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_flipx(playerMetaspriteRt, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_UPRT:
-            move_metasprite_ex(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_ex(playerMetaspriteUpRt, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_UPLT:
-            move_metasprite_flipx(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_flipx(playerMetaspriteUpRt, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_DNRT:
-            move_metasprite_flipy(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_flipy(playerMetaspriteUpRt, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
         case PF_DNLT:
-            move_metasprite_flipxy(playerMetaspriteUpRt, 0, 0, 0,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
+            return move_metasprite_flipxy(playerMetaspriteUpRt, 0, 0, hw_sprite,viewXfromWorldX(playerPawns[p].x), viewYfromWorldY(playerPawns[p].y));
         break;
     }
+    return 0;
 }

@@ -65,7 +65,7 @@ void collideWithEachOther(){
 
 void draw(){
     for(uint_fast8_t p=0;p<1;p++){
-        drawPlayerSprite(p);
+        drawPlayerSprites(p, 0);
     }
 }
 
@@ -94,13 +94,8 @@ void main(void)
 	init_gfx();
     init_rng();
     populateCollisionMap(base_map,base_mapWidth,base_mapHeight);
-       
-    uint_fast8_t startingSprite=0;
 
-    playerPawns[0].sprite=0;
-    playerPawns[0].facing=PF_UP;
-    playerPawns[0].x=32<<SUBPIXEL_SCALE_SHIFT; playerPawns[0].y=128<<SUBPIXEL_SCALE_SHIFT;
-
+    initPlayer(0);
     uint_fast32_t addShieldCounter=0;
 
     // Loop forever

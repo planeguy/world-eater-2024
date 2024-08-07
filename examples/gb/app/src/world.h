@@ -29,9 +29,8 @@ extern uint_fast8_t *collisionMap;
 extern uint_fast16_t collisionMapHeight;
 extern uint_fast16_t collisionMapWidth;
 void populateCollisionMap(uint_fast8_t originalMap[], uint_fast16_t originalWidth, uint_fast16_t originalHeight);
-uint_fast8_t whatTileTypeAtXY(int_fast16_t x, int_fast16_t y);
-uint_fast8_t isShieldAtXY(int_fast16_t x, int_fast16_t y);
 
+uint_fast8_t whatTileTypeAtXY(int_fast16_t x, int_fast16_t y);
 uint_fast8_t isWorldSolidAtXY(int_fast16_t x, int_fast16_t y);
 
 void putShieldAtXY(int_fast16_t x, int_fast16_t y);
